@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Álex | Remote Work Research</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0e27;
+            --surface: #151a35;
+            --text: #e4e4e7;
+            --text-dim: #94a3b8;
+            --accent: #06b6d4;
+            --accent-2: #f97316;
+            --accent-3: #8b5cf6;
+            --border: #1e293b;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(249, 115, 22, 0.02) 0%, transparent 50%);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            color: var(--accent);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fadeIn 0.8s ease-out 0.4s backwards;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-out 0.6s backwards;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 700px;
+        }
+
+        /* Disclaimer boxes */
+        .disclaimer {
+            background: rgba(6, 182, 212, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        /* Work Types Grid */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .work-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-3));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .work-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .work-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .work-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .work-card p {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .my-take {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 3px solid var(--accent-3);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .my-take strong {
+            color: var(--accent-3);
+        }
+
+        /* Rules Section */
+        .rules-container {
+            margin-top: 3rem;
+        }
+
+        .rule-category {
+            margin-bottom: 3rem;
+        }
+
+        .rule-category h3 {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+        }
+
+        .rule-category.prohibited h3 {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .rule-category.permitted h3 {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .rule-category.conditional h3 {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--accent-2);
+        }
+
+        .rule-list {
+            list-style: none;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .rule-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+            transition: all 0.2s;
+        }
+
+        .rule-item:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .rule-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        /* Wellbeing Section */
+        .wellbeing-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .wellbeing-category {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .wellbeing-category h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .wellbeing-list {
+            list-style: none;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .wellbeing-list li {
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-dim);
+        }
+
+        .wellbeing-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+        }
+
+        .comparison h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .comparison-value {
+            color: var(--text-dim);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 6rem;
+        }
+
+        footer p {
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-accent {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 80vh;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
+
+            .comparison-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Smooth animations on scroll */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag"> ASIR Student / Future Developer </div>
+            <h1>Hey, I'm Álex</h1>
+            <p class="hero-subtitle">Exploring the world of remote work before I even start working</p>
+            <p class="hero-description">
+                I'm currently studying <span class="highlight"> ASIR </span> (Administración de Sistemas Informáticos en Red) and trying to figure out where I'll actually want to work when I finish. This is basically me documenting my research on remote, office, and hybrid work. <span class="highlight">Spoiler: I'm leaning towards hybrid, but I've never actually worked yet.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Work Types Section -->
+        <section id="work-types" class="fade-in">
+            <div class="section-header">
+                <div class="section-tag">01 / Work Modes</div>
+                <h2>The Three Options (As I See Them)</h2>
+                <p class="section-description">
+                    From what I've been reading and hearing from people already working in tech, there are basically three ways to do this job. Here's my breakdown based on research, not experience.
+                </p>
+            </div>
+
+            <div class="disclaimer">
+                <strong>Heads up:</strong> I haven't actually worked in any of these environments yet. Everything below is based on research, YouTube videos, Reddit threads, and conversations with people who are already working. Take it with a grain of salt – I'm literally a student trying to plan ahead.
+            </div>
+
+            <div class="work-grid">
+                <div class="work-card">
+                    <div class="work-icon">🏠++</div>
+                    <h3>Remote Work</h3>
+                    <p>
+                        Working from literally anywhere – your bedroom, a café, the beach if you want. You talk to your team through Slack and Zoom, never wear real pants, and your commute is from your bed to your desk. Sounds like the dream, honestly.
+                    </p>
+                    <div class="my-take">
+                        <strong>My take:</strong> The freedom sounds incredible, and I love the idea of no commute. But I'm kinda worried I'd get too isolated since I've never worked before. Also, would I actually be productive or just play video games all day? Hard to say without trying it.
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-icon">🏢</div>
+                    <h3>Office Work</h3>
+                    <p>
+                        The classic setup. You go to an actual building, sit at a desk with other humans around, and have face-to-face conversations. When you leave at 5 PM, work stays there. The downside? Commuting every single day and dealing with office politics.
+                    </p>
+                    <div class="my-take">
+                        <strong>My take:</strong> I like the idea of separating work from home – when I'm home, I'm HOME. And learning from senior people in person would probably be easier. But waking up early to commute sounds rough, especially in winter.
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-icon">🔄</div>
+                    <h3>Hybrid Work</h3>
+                    <p>
+                        The best of both worlds – maybe you go to the office Mondays and Wednesdays for meetings and collaboration, then work from home the rest of the week. You get social interaction when you need it, but also the flexibility to work in your pajamas sometimes.
+                    </p>
+                    <div class="my-take">
+                        <strong>My take:</strong> This is what I'm thinking I'd prefer, even though I haven't tried it yet. Seems like the perfect balance – get the learning experience from being around people, but still have flexibility. Only commuting 2-3 days a week sounds way more manageable than 5.
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison">
+                <h3>Quick Comparison</h3>
+                <div class="comparison-row">
+                    <div class="comparison-label">Where you work</div>
+                    <div class="comparison-value">Remote (anywhere) • Office (fixed location) • Hybrid (both)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-label">Flexibility</div>
+                    <div class="comparison-value">Remote (maximum) • Hybrid (balanced) • Office (minimal)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-label">Social interaction</div>
+                    <div class="comparison-value">Office (daily) • Hybrid (regular) • Remote (mostly digital)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-label">Best for learning</div>
+                    <div class="comparison-value">Office or Hybrid (in-person mentorship) • Remote (requires self-direction)</div>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                Again, this is all theoretical for me. I'm basing this on what makes sense from the outside looking in. Ask me in a year once I've actually experienced it and I might have completely different opinions!
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section id="security" class="fade-in">
+            <div class="section-header">
+                <div class="section-tag">02 / Security</div>
+                <h2>Security Notes I Need to Remember</h2>
+                <p class="section-description">
+                    From what I've been learning in ASIR and reading online, security is a huge deal when working remotely. Here's what I've gathered about what you can and can't do.
+                </p>
+            </div>
+
+            <div class="rules-container">
+                <div class="rule-category prohibited">
+                    <h3>❌ Stuff You Absolutely Cannot Do</h3>
+                    <ul class="rule-list">
+                        <li class="rule-item">
+                            <span class="rule-icon">🔒</span>
+                            <div>
+                                <strong>You must not share your passwords</strong> with anyone. Not your friends, not your roommate, not even your dog. Passwords stay private, period.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">📡</span>
+                            <div>
+                                <strong>You are forbidden from using public WiFi</strong> for work without a VPN. Coffee shop WiFi is basically asking to get hacked.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">💾</span>
+                            <div>
+                                <strong>You must not install random software</strong> on your work computer. If IT didn't approve it, don't install it.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">🖥️</span>
+                            <div>
+                                <strong>You cannot leave your laptop unlocked</strong> when you walk away. Even if it's just to grab a snack. Always lock your screen.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">☁️</span>
+                            <div>
+                                <strong>You are not allowed to save work files</strong> to personal cloud storage like your personal Dropbox or Google Drive. Company data stays on company systems.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="rule-category permitted">
+                    <h3>✅ Things You're Allowed to Do</h3>
+                    <ul class="rule-list">
+                        <li class="rule-item">
+                            <span class="rule-icon">🌍</span>
+                            <div>
+                                <strong>You may work from different locations</strong> as long as you follow security rules. Home, a friend's place, wherever – just stay secure.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">💬</span>
+                            <div>
+                                <strong>You are allowed to use approved tools</strong> like Slack, Zoom, Teams – basically anything IT has given you access to.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">⏰</span>
+                            <div>
+                                <strong>You can set your own hours</strong> if your team works asynchronously. Morning person? Night owl? Do what works for you.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">☕</span>
+                            <div>
+                                <strong>You may take breaks whenever</strong> you need them. Seriously, take breaks. Your brain needs rest.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">🎨</span>
+                            <div>
+                                <strong>You are permitted to customize your workspace</strong> however you want. Plants, posters, RGB lights – make it yours.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="rule-category conditional">
+                    <h3>⚠️ Depends on the Situation</h3>
+                    <ul class="rule-list">
+                        <li class="rule-item">
+                            <span class="rule-icon">🔐</span>
+                            <div>
+                                <strong>If you need to access company systems remotely,</strong> you must use the VPN first. No shortcuts, no exceptions.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">👁️</span>
+                            <div>
+                                <strong>If you're working somewhere public,</strong> you should use a privacy screen. Don't want random people reading your code over your shoulder.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">📧</span>
+                            <div>
+                                <strong>If an email looks suspicious,</strong> you should report it to security immediately. Better safe than sorry.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">🚨</span>
+                            <div>
+                                <strong>If your laptop gets lost or stolen,</strong> you must notify IT within an hour. Drop everything and call them.
+                            </div>
+                        </li>
+                        <li class="rule-item">
+                            <span class="rule-icon">📤</span>
+                            <div>
+                                <strong>If you need to share files externally,</strong> you should only use encrypted, company-approved platforms.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wellbeing Section -->
+        <section id="wellbeing" class="fade-in">
+            <div class="section-header">
+                <div class="section-tag">03 / Well-being</div>
+                <h2>My Plan for Not Burning Out</h2>
+                <p class="section-description">
+                    I've read way too many horror stories about people burning out while working remotely. Since I haven't even started working yet, these are strategies I'm planning to use based on what seems to work for others.
+                </p>
+            </div>
+
+            <div class="disclaimer">
+                <strong>Reality check:</strong> These are my goals and plans, not things I'm currently doing. We'll see if future Álex actually follows through with this or if it all goes out the window once I start working. Fingers crossed!
+            </div>
+
+            <div class="wellbeing-grid">
+                <div class="wellbeing-category">
+                    <h3>🔥 Avoiding Burnout</h3>
+                    <ul class="wellbeing-list">
+                        <li><strong>Actually log off at the end of the day.</strong> I'm planning to set hard boundaries – work laptop closes at 6 PM and doesn't open until the next morning.</li>
+                        <li><strong>Use the Pomodoro technique.</strong> Everyone recommends this – 25 minutes focused work, 5 minute break. Gonna try it and actually move around during breaks.</li>
+                        <li><strong>Learn to say no.</strong> This will be hard for me as a junior trying to prove myself, but I can't take every project just because I'm new.</li>
+                        <li><strong>Block off focus time.</strong> Planning to mark hours as "Do Not Disturb" so I can actually concentrate without interruptions.</li>
+                        <li><strong>Know my peak hours.</strong> I'm useless before 10 AM, so I'll schedule difficult tasks for when my brain actually works.</li>
+                        <li><strong>Use all vacation days.</strong> I've heard too many stories of people not taking time off. Not gonna be me.</li>
+                    </ul>
+                </div>
+
+                <div class="wellbeing-category">
+                    <h3>⚡ Staying Productive</h3>
+                    <ul class="wellbeing-list">
+                        <li><strong>Morning routine.</strong> Gonna shower and get dressed (real clothes, not pajamas) to signal to my brain that work is starting.</li>
+                        <li><strong>Time-blocking.</strong> Scheduling specific tasks for specific hours. Sounds rigid but should help with my procrastination problem.</li>
+                        <li><strong>Dedicated workspace.</strong> Not working from bed or the couch. Need one spot that's only for work.</li>
+                        <li><strong>Batch similar tasks.</strong> Answer all emails at once, do all meetings back-to-back. More efficient than constantly switching.</li>
+                        <li><strong>Use organization tools.</strong> Probably going with Notion because it looks cool. Just need to pick one and stick with it.</li>
+                        <li><strong>End-of-day shutdown.</strong> Review what I did, plan tomorrow, close laptop, walk away. This will be my "work is done" signal.</li>
+                        <li><strong>Block distracting sites.</strong> Instagram and YouTube are my kryptonite. Definitely using a website blocker during work hours.</li>
+                    </ul>
+                </div>
+
+                <div class="wellbeing-category">
+                    <h3>💪 Physical Health Goals</h3>
+                    <ul class="wellbeing-list">
+                        <li><strong>Exercise daily.</strong> Even if it's just 20 minutes. Thinking yoga or walks so I don't become a complete couch potato.</li>
+                        <li><strong>Consistent sleep schedule.</strong> Same bedtime every night. I'm terrible at this now but working from home could make it worse.</li>
+                        <li><strong>Stay hydrated.</strong> Water bottle on desk, phone reminders set. Brain needs water to function, apparently.</li>
+                        <li><strong>The 20-20-20 rule.</strong> Every 20 minutes, look at something 20 feet away for 20 seconds. Don't want to destroy my eyes.</li>
+                        <li><strong>Real meals away from the desk.</strong> Lunch is a break, not multitasking time. Actually gonna enforce this.</li>
+                        <li><strong>Invest in ergonomics.</strong> Saving up for a good chair and monitor stand. Future me's back will thank me.</li>
+                        <li><strong>Talk to actual humans.</strong> Regular video calls with friends and colleagues. Can't let my only social interaction be with my cat.</li>
+                        <li><strong>Go outside daily.</strong> At least once. Fresh air and sunlight are important. My gamer skin needs vitamin D.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                Let's be real – these all sound great in theory. The real test is whether I'll actually do them when I'm tired, stressed, and have deadlines. But at least I'm thinking about it now, right?
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong class="footer-accent">Álex's Remote Work Research</strong></p>
+        <p>An ASIR student's thoughts on work environments I haven't experienced yet</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">Made with curiosity and way too much research</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.5;">Working Online Unit - Final Project</p>
+    </footer>
+
+    <script>
+        // Fade in elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
