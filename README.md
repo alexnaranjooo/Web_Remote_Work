@@ -60,6 +60,7 @@
   <rect x="0" y="157" width="900" height="3" fill="url(#line)" rx="2"/>
 </svg>
 
+---
 > Página web estática sobre el trabajo en remoto, sus ventajas, herramientas y cultura laboral moderna — desarrollada como proyecto escolar.
 
 ---
